@@ -15,7 +15,7 @@ class Login{
     public function inicio($campos, $arquivo){
         // Verificar se os campos estão em branco
         if($this->recebeDados($campos)){
-           if($this->validaData($campos["senhaLogin"])){
+           if($this->senhaLogin($campos["senhaLogin"])){
                 if($this->recebeArquivo($arquivo)){
                     $this->mensagem = [
                         "status"=>true,
@@ -48,13 +48,13 @@ class Login{
 
     public function validaData($data){
 
-        $dataEvento = new DateTime($data);// Esta classe precisa de uma data no padrão americano para funcionar
+        $senhaLogin = new DateTime($data);// Esta classe precisa de uma data no padrão americano para funcionar
         $dataAtual = new DateTime("now");// estamos pegando a data atual
-       // echo $dataEvento->format("d/m/Y");// mostrando a data no padrão brasileiro
+       // echo $senhaLogin->format("d/m/Y");// mostrando a data no padrão brasileiro
         //echo "<br> A data de hoje é: ";
        // print_r($dataAtual);
     
-        if($dataEvento > $dataAtual){
+        if($senhaLogin > $dataAtual){
            // echo "<p>Data do evento cadastrado com sucesso!</p>";
            return true;
         }
@@ -65,15 +65,15 @@ class Login{
     }
 
     public function recebeDados($campos){
-        $this->nomeEvento = $campos["nomeLogin"];
-        $this->dataEvento = $campos["senhaLogin"];
-        if(empty($this->nomeEvento) || empty($this->senhaLogin)){
+        $this->nomeLogin = $campos["nomeLogin"];
+        $this->senhaLogin = $campos["senhaLogin"];
+        if(empty($this->nomeLogin) || empty($this->senhaLogin)){
             return false;
         }
         else{
             return true;
         }
-        //echo "O {$this->nomeEvento} vai acontecer na data {$this->senhaLogin}";
+        //echo "O {$this->nomeLogin} vai acontecer na data {$this->senhaLogin}";
     }
 
     // Essa função irá receber o comando no padrão $_FILES['nome_arquivo']
